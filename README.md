@@ -4,6 +4,27 @@
 
 This project demonstrates RSA encryption and decryption in C++.
 
+## Getting Started
+
+To run the program, ensure you have a C++ compiler installed. You can compile and execute the program using the following steps:
+
+1. **Clone the repository:**
+    ```bash
+    git clone https://github.com/TDD66/Message-Encrypter.git
+    cd Message-Encrypter
+    ```
+
+2. **Compile the code:**
+    ```bash
+    g++ main.cpp Encryption.cpp -o message_encrypter
+    ```
+
+3. **Run the program:**
+    ```bash
+    ./message_encrypter
+    ```
+
+
 ### Features
 
 - **Key Generation**: Allows users to generate public and private RSA keys by entering prime numbers.
