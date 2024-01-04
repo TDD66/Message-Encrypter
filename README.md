@@ -6,7 +6,7 @@ This project demonstrates RSA encryption and decryption in C++.
 
 ## Getting Started
 
-To run the program, ensure you have a C++ compiler installed. You can compile and execute the program using the following steps:
+To run the program, ensure you have a C++ compiler (C++17) installed. You can compile and execute the program using the following steps:
 
 1. **Clone the repository:**
     ```bash
@@ -16,7 +16,7 @@ To run the program, ensure you have a C++ compiler installed. You can compile an
 
 2. **Compile the code:**
     ```bash
-    g++ Encryption.cpp -o message_encrypter
+    g++ -std=c++17 Encryption.cpp -o message_encrypter
     ```
 
 3. **Run the program:**
