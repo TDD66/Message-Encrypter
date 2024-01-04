@@ -16,7 +16,7 @@ To run the program, ensure you have a C++ compiler installed. You can compile an
 
 2. **Compile the code:**
     ```bash
-    g++ main.cpp Encryption.cpp -o message_encrypter
+    g++ Encryption.cpp -o message_encrypter
     ```
 
 3. **Run the program:**
