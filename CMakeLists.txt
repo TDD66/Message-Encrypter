@@ -8,6 +8,4 @@ include_directories(.)
 add_executable(Message_Encrypter
         Encryption.cpp
         LICENSE
-        README.md
-        RSA.h
-        test/testRSA.cpp)
+        README.md)

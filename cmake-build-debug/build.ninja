@@ -56,13 +56,6 @@ build CMakeFiles/Message_Encrypter.dir/Encryption.cpp.o: CXX_COMPILER__Message_E
   OBJECT_DIR = CMakeFiles/Message_Encrypter.dir
   OBJECT_FILE_DIR = CMakeFiles/Message_Encrypter.dir
 
-build CMakeFiles/Message_Encrypter.dir/test/testRSA.cpp.o: CXX_COMPILER__Message_Encrypter_unscanned_Debug /Users/tadiwadzvoti/CLionProjects/Message-Encrypter/test/testRSA.cpp || cmake_object_order_depends_target_Message_Encrypter
-  DEP_FILE = CMakeFiles/Message_Encrypter.dir/test/testRSA.cpp.o.d
-  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -mmacosx-version-min=13.2 -fcolor-diagnostics
-  INCLUDES = -I/Users/tadiwadzvoti/CLionProjects/Message-Encrypter/.
-  OBJECT_DIR = CMakeFiles/Message_Encrypter.dir
-  OBJECT_FILE_DIR = CMakeFiles/Message_Encrypter.dir/test
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Message_Encrypter
@@ -71,7 +64,7 @@ build CMakeFiles/Message_Encrypter.dir/test/testRSA.cpp.o: CXX_COMPILER__Message
 #############################################
 # Link the executable Message_Encrypter
 
-build Message_Encrypter: CXX_EXECUTABLE_LINKER__Message_Encrypter_Debug CMakeFiles/Message_Encrypter.dir/Encryption.cpp.o CMakeFiles/Message_Encrypter.dir/test/testRSA.cpp.o
+build Message_Encrypter: CXX_EXECUTABLE_LINKER__Message_Encrypter_Debug CMakeFiles/Message_Encrypter.dir/Encryption.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -mmacosx-version-min=13.2
   OBJECT_DIR = CMakeFiles/Message_Encrypter.dir
   POST_BUILD = :
