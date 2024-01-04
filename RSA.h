@@ -2,22 +2,49 @@
 #include <cstring>
 #include <algorithm>
 #include <numeric>
+#include <vector>
 
-void GenPublicKey();
+long long int GenPublicKey();
+void GenPrivateKey(long long int);
 bool IsPrime(long long num);
-long long int p, q, n, z, e; // variables to hold prime numbers for encryption
+long long int p, q, n, e; // variables to hold prime numbers for encryption
 
 std::string RsaEncrypt(std::string message){
 
-    GenPublicKey();
+    int z_return = GenPublicKey();
 
-    return "blah";
+    if(z_return == -1){
+        std::cout << "Invalid, exiting.";
+        return "";
+    }
+    GenPrivateKey(z_return);
+
+    // Convert string to numeric message
+    std::vector<long long> numeric_message;
+    for(char ch : message){
+        numeric_message.push_back(static_cast<long long>(ch));
+    }
+
+    std::string encrypted_message = "";
+    // Perform encryption on message
+    for(long long j : numeric_message){
+        long long encrypted = 1;
+        for(int k = 0; k < e; ++k){
+            encrypted = (encrypted * j)  % n;
+        }
+        encrypted_message += std::to_string(encrypted) + " ";
+    }
+
+    std::cout << "Encrypted Message: " << encrypted_message << std::endl;
+
+    return encrypted_message;
 }
 
-void GenPublicKey(){
+long long int GenPublicKey(){
     int i = 0;
     bool flag = false;
     bool prime;
+    long long int z;
     std::string max_attempts_message = "Maximum attempts exceeded, exiting";
     std::cout << "You have 3 attempts to enter valid prime number" << std::endl;
 
@@ -38,7 +65,7 @@ void GenPublicKey(){
                 std::cout <<"That was not a prime number" << std::endl;
                 i++;
                 if(i == 3){
-                    return;
+                    return -1;
                 }
             }
             else{
@@ -68,7 +95,7 @@ void GenPublicKey(){
                 std::cout <<"That was not a prime number" << std::endl;
                 i++;
                 if(i == 3){
-                    return;
+                    return -1;
                 }
             }
             else{
@@ -81,8 +108,9 @@ void GenPublicKey(){
     // Calculate first part of public key
     n = p * q;
     // Calculate z and tell the user z
-    z = (p-1) *(z-1);
+    z = (p-1) *(q-1);
 
+    // e means encrypt
     // e is selected for the user
     // short bit length e is ideal so will start from 3
     // e must be coprime to z and smaller than z
@@ -94,12 +122,37 @@ void GenPublicKey(){
             e++;
             if(e == z){
                 std::cout <<"No suitable values found";
-                return;
+                return -1;
             }
         }
     }
 
     std::cout << "Public key values are (" << n << ", " << e << ")" << std::endl;
+    return z;
+}
+
+// Function to generate private key
+void GenPrivateKey(long long int z_use){
+
+    // d means decrypt
+    // choose d such that it satisfies
+    // d*e = 1 mod z and d must be a whole number
+    // d will be selected by iteration
+    long long d, d1; // d and a temp variable
+    bool d_flag = false;
+    int i = 1;
+    while(!d_flag){
+
+        d1 = ((z_use * i) + 1);
+        // Check if d will be a whole number
+        if(d1 % e == 0){
+            d = d1 / e;
+            d_flag = true;
+        }
+        i++;
+    }
+
+    std::cout << "Private key values are (" << n << ", " << d << ")" << std::endl;
 }
 
 
