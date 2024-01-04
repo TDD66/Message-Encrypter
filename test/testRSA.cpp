@@ -1,3 +1,8 @@
+// Created by Tadiwanashe Dzvoti on 04/01/2024.
+//
+
+// Code responsible for doing RSA encryption
+
 #include <iostream>
 #include <cstring>
 #include <algorithm>
@@ -118,4 +123,9 @@ bool IsPrime(long long num){
         }
     }
     return true;
+}
+
+int main(){
+    RsaEncrypt("blah");
+    return 0;
 }
