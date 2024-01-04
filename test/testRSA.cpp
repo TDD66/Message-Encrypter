@@ -4,19 +4,19 @@
 // Code responsible for doing RSA encryption
 
 #include <iostream>
-#include <cstring>
 #include <algorithm>
 #include <numeric>
 #include <vector>
+#include <sstream>
 
 long long int GenPublicKey();
 void GenPrivateKey(long long int);
 bool IsPrime(long long num);
-long long int p, q, n, e; // variables to hold prime numbers for encryption
+long long int p, q, n, e, d; // variables to hold prime numbers for encryption
 
-std::string RsaEncrypt(std::string message){
+std::string RsaEncrypt(const std::string& message){
 
-    int z_return = GenPublicKey();
+    long long z_return = GenPublicKey();
 
     if(z_return == -1){
         std::cout << "Invalid, exiting.";
@@ -24,17 +24,26 @@ std::string RsaEncrypt(std::string message){
     }
     GenPrivateKey(z_return);
 
+    std::cout <<"Original Message: " << message << std::endl;
+
     // Convert string to numeric message
     std::vector<long long> numeric_message;
     for(char ch : message){
         numeric_message.push_back(static_cast<long long>(ch));
     }
 
+    // Print ASCII code of message
+    std::cout <<"Message in ASCII form: ";
+    for(long long i : numeric_message){
+        std::cout << std::to_string(i) << " ";
+    }
+    std::cout << std::endl;
+
     std::string encrypted_message = "";
     // Perform encryption on message
     for(long long j : numeric_message){
         long long encrypted = 1;
-        for(int k = 0; k < e; ++k){
+        for(int k = 0; k < e; k++){
             encrypted = (encrypted * j)  % n;
         }
         encrypted_message += std::to_string(encrypted) + " ";
@@ -45,12 +54,36 @@ std::string RsaEncrypt(std::string message){
     return encrypted_message;
 }
 
+void RsaDecrypt(std::string encrypted_message){
+
+    std::istringstream iss(encrypted_message);
+    std::vector <long long> encrypted_values;
+    std::string temp; // temp variable to store individual values from encrypted message
+
+    // Push individual values into encrypted values vector
+    while(std::getline(iss, temp, ' ')){
+        encrypted_values.push_back(std::stoll(temp));
+    }
+
+    std::string decrypted_message = "";
+    // Perform decryption
+    for(long long encrypted : encrypted_values){
+
+        long long decrypted = 1;
+        for(int j = 0; j < d; j++){
+            decrypted = (decrypted * encrypted) % n;
+        }
+        decrypted_message += static_cast<char>(decrypted);
+    }
+
+    std::cout << "Decrypted Message: " << decrypted_message << std::endl;
+}
+
 long long int GenPublicKey(){
     int i = 0;
     bool flag = false;
     bool prime;
     long long int z;
-    std::string max_attempts_message = "Maximum attempts exceeded, exiting";
     std::cout << "You have 3 attempts to enter valid prime number" << std::endl;
 
     while(i < 3 && !flag){
@@ -143,15 +176,15 @@ void GenPrivateKey(long long int z_use){
     // choose d such that it satisfies
     // d*e = 1 mod z and d must be a whole number
     // d will be selected by iteration
-    long long d, d1; // d and a temp variable
+    long long d_temp; // d and a temp variable
     bool d_flag = false;
     int i = 1;
     while(!d_flag){
 
-        d1 = ((z_use * i) + 1);
+        d_temp = ((z_use * i) + 1);
         // Check if d will be a whole number
-        if(d1 % e == 0){
-            d = d1 / e;
+        if(d_temp % e == 0){
+            d = d_temp / e;
             d_flag = true;
         }
         i++;
@@ -179,6 +212,8 @@ bool IsPrime(long long num){
 }
 
 int main(){
-    RsaEncrypt("blah");
+    std::string s = RsaEncrypt("blah");
+    RsaDecrypt(s);
+
     return 0;
 }
