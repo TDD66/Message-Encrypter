@@ -20,7 +20,7 @@ int main(){
 
     std::string message;
     std::cout <<"Enter message you wish to encrypt: ";
-    std::cin >> message;
+    std::getline(std::cin, message);
 
     std::string cyphertext = RsaEncrypt(message);
     RsaDecrypt(cyphertext);
